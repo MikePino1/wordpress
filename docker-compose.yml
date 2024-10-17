@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpressql
+      WORDPRESS_DB_USER: admindb
+      WORDPRESS_DB_PASSWORD: admin123
+    volumes:
+      - ./html:/var/www/html
+
+  db:
+    image: michaelpinom/mysql:5.7
+    environment:
+      MYSQL_DATABASE: wordpressql
+      MYSQL_USER: admindb
+      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
